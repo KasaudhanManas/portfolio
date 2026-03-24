@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Manas Kasaudhan — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">MK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="canvas-bg"></canvas>
+
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+
+    <h1 class="hero-name">
+      Manas
+      <span class="accent-line">Kasaudhan</span>
+    </h1>
+
+    <div class="hero-typing-wrap">
+      <span id="typed-text"></span><span class="cursor-blink"></span>
+    </div>
+
+    <p class="hero-sub">
+      Building scalable, efficient, and real-world applications — from concept to production. Focused on clean code, performance, and systems that scale.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="resume.html" class="btn-outline">Download Resume</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">4<span>+</span></div>
+      <div class="stat-label">Projects Built</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10K<span>+</span></div>
+      <div class="stat-label">Daily API Req.</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">40<span>%</span></div>
+      <div class="stat-label">Query Optimization</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="section-eyebrow">About</div>
+    <h2 class="section-title">The mind<br>behind the code</h2>
+    <p class="about-text">
+      I'm <strong>Manas Kasaudhan</strong>, a full stack developer who approaches engineering the way a chess player approaches the board — <em>thinking several moves ahead</em>, strategically architecting systems before a single line of code is written.
+      <br><br>
+      My work lives at the intersection of <strong>clean architecture</strong>, <strong>performance optimization</strong>, and <strong>real-world impact</strong>. I don't just ship features — I build systems designed to scale, with codebases that stay maintainable as they grow.
+      <br><br>
+      Open source isn't a side project to me; it's a <em>philosophy</em>. Good software should be transparent, collaborative, and community-driven. I'm a <strong>continuous learner</strong> who actively reads, experiments, and builds to stay at the frontier of what's possible.
+    </p>
+
+    <div class="fun-facts reveal">
+      <div class="fun-fact">♟ Chess Strategist</div>
+      <div class="fun-fact">📚 Avid Reader</div>
+      <div class="fun-fact">🌐 Open Source</div>
+      <div class="fun-fact">⚡ Lifelong Learner</div>
+    </div>
+  </div>
+
+  <div class="about-right reveal">
+    <div class="about-card">
+      <div class="about-facts">
+        <div class="fact-item">
+          <span class="fact-icon">🎯</span>
+          <div>
+            <div class="fact-label">Current Focus</div>
+            <div class="fact-val">Scalable Full Stack Systems</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <span class="fact-icon">🏗</span>
+          <div>
+            <div class="fact-label">Architecture Style</div>
+            <div class="fact-val">REST APIs + Microservices</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <span class="fact-icon">📍</span>
+          <div>
+            <div class="fact-label">Location</div>
+            <div class="fact-val">India</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <span class="fact-icon">🔍</span>
+          <div>
+            <div class="fact-label">Open To</div>
+            <div class="fact-val">Full-time & Freelance Roles</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <span class="fact-icon">⚡</span>
+          <div>
+            <div class="fact-label">Specialty</div>
+            <div class="fact-val">Performance Optimization</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <span class="fact-icon">🎓</span>
+          <div>
+            <div class="fact-label">Education</div>
+            <div class="fact-val">MCA — Galgotias University</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-header reveal">
+    <div class="section-eyebrow">Technical Expertise</div>
+    <h2 class="section-title">Skills &<br>Technologies</h2>
+    <p class="section-sub">A curated stack built for modern, production-grade applications — from frontend interaction to database optimization.</p>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React.js</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">Tailwind CSS</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">JWT Auth</span>
+        <span class="skill-tag">Socket.io</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MySQL</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">Tools & Infra</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git & GitHub</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Vite</span>
+      </div>
+    </div>
+    <div class="skill-cat reveal">
+      <div class="skill-cat-title">Other</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Axios</span>
+        <span class="skill-tag">Chart.js</span>
+        <span class="skill-tag">EmailJS</span>
+        <span class="skill-tag">Three.js</span>
+        <span class="skill-tag">Framer Motion</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-eyebrow reveal">Work Experience</div>
+  <h2 class="section-title reveal">Where I've<br>shipped code</h2>
+
+  <div class="exp-layout">
+    <div class="exp-timeline reveal">
+      <div class="exp-item">
+        <div class="exp-company">Codec Technologies</div>
+        <div class="exp-role">Full Stack Developer Intern</div>
+        <div class="exp-date">Feb 2026 — Mar 2026</div>
+        <p class="section-sub" style="font-size:12px;">Contributed to production-level applications handling thousands of daily users, focusing on performance and API reliability.</p>
+      </div>
+      <div class="exp-item" style="margin-top: 40px;">
+        <div class="exp-company">Zaalima Developments Pvt. Ltd.</div>
+        <div class="exp-role">Software Engineering Intern</div>
+        <div class="exp-date">2025 — 2026</div>
+        <p class="section-sub" style="font-size:12px;">Assisted in the development of dynamic full-stack web applications. Focused on building responsive user interfaces, integrating secure REST APIs, and optimizing database workloads to enhance overall platform stability.</p>
+      </div>
+    </div>
+
+    <div class="exp-achievements reveal">
+      <div class="achievement">
+        <div class="ach-metric">30%</div>
+        <div>
+          <div style="font-size:13px;color:var(--text);margin-bottom:4px;">Development Efficiency</div>
+          <div class="ach-desc">Streamlined development workflows with reusable component libraries and standardized API patterns.</div>
+        </div>
+      </div>
+      <div class="achievement">
+        <div class="ach-metric">40–45%</div>
+        <div>
+          <div style="font-size:13px;color:var(--text);margin-bottom:4px;">MongoDB Query Speed</div>
+          <div class="ach-desc">Optimized database queries using indexing strategies, aggregation pipelines, and lean projections.</div>
+        </div>
+      </div>
+      <div class="achievement">
+        <div class="ach-metric">75%</div>
+        <div>
+          <div style="font-size:13px;color:var(--text);margin-bottom:4px;">Code Coverage (from 40%)</div>
+          <div class="ach-desc">Dramatically improved test coverage across unit, integration, and API test suites.</div>
+        </div>
+      </div>
+      <div class="achievement">
+        <div class="ach-metric">10K+</div>
+        <div>
+          <div style="font-size:13px;color:var(--text);margin-bottom:4px;">Daily API Requests Handled</div>
+          <div class="ach-desc">Built and maintained REST APIs with JWT authentication serving real production traffic.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header">
+    <div>
+      <div class="section-eyebrow reveal">Selected Work</div>
+      <h2 class="section-title reveal">Projects</h2>
+    </div>
+    <a href="admin.html" class="btn-outline reveal" style="white-space:nowrap; text-decoration:none;">⚙ Admin Panel</a>
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
+    <!-- Projects injected via JS -->
+  </div>
+</section>
+
+<!-- GITHUB STATS -->
+<section id="github">
+  <div class="github-inner reveal">
+    <div class="github-text">
+      <div class="section-eyebrow" style="margin-bottom:16px;">Open Source</div>
+      <div class="github-title">Active on GitHub</div>
+      <p class="github-sub">Consistently shipping code, reviewing PRs, and contributing to the open source community. Every commit represents a problem solved.</p>
+      <div class="github-stat-row">
+        <div>
+          <div class="g-stat-val">50+</div>
+          <div class="g-stat-label">Repositories</div>
+        </div>
+        <div>
+          <div class="g-stat-val">200+</div>
+          <div class="g-stat-label">Commits / Year</div>
+        </div>
+        <div>
+          <div class="g-stat-val">15+</div>
+          <div class="g-stat-label">Stars Earned</div>
+        </div>
+      </div>
+    </div>
+    <div class="github-img">
+      <div class="contrib-grid" id="contrib-grid"></div>
+      <div style="margin-top:10px;font-size:10px;color:var(--muted);text-align:right;">Contribution activity — past year</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="padding-top:0">
+  <div class="edu-card reveal">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-degree">Master of Computer Applications (MCA)</div>
+      <div class="edu-school">Galgotias University</div>
+      <div class="edu-year">2024 — 2026 · Greater Noida, India</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow reveal">Get in Touch</div>
+  <h2 class="section-title reveal">Let's build<br>something.</h2>
+
+  <div class="contact-layout">
+    <div class="contact-info reveal">
+      <p class="contact-desc">
+        Whether it's a full-time role, a freelance project, or an open source collaboration — I'm always open to conversations about challenging, meaningful work.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:manas@example.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-val">manas.kasaudhan@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://github.com/manaskasaudhan" target="_blank" class="contact-link">
+          <span class="contact-link-icon">⌥</span>
+          <div>
+            <div class="contact-link-label">GitHub</div>
+            <div class="contact-link-val">github.com/manaskasaudhan</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/manaskasaudhan" target="_blank" class="contact-link">
+          <span class="contact-link-icon">◈</span>
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-val">linkedin.com/in/manaskasaudhan</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <form class="contact-form" id="contact-form" onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input class="form-input" type="text" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project or opportunity..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+        <div class="form-success" id="form-success">
+          ✓ Message received! I'll get back to you within 24 hours.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Manas Kasaudhan. All rights reserved.</span>
+  <span>Built with React · Node.js · MongoDB</span>
+  <a href="admin.html" style="background:none;border:none;color:var(--muted);cursor:pointer;font-family:inherit;font-size:11px;text-decoration:none;" class="nav-cta" title="Admin">Admin</a>
+</footer>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
