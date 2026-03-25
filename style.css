@@ -285,6 +285,7 @@
   }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .skill-tag {
+    display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 14px;
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border);
@@ -293,6 +294,7 @@
     letter-spacing: 0.05em;
     transition: all 0.2s;
   }
+  .skill-tag i { font-size: 14px; }
   .skill-tag:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(124,106,255,0.08); }
 
   /* ===== EXPERIENCE ===== */
@@ -484,7 +486,8 @@
     transition: all 0.3s;
   }
   .contact-link:hover { border-color: var(--accent); background: rgba(0,245,196,0.04); }
-  .contact-link-icon { font-size: 18px; width: 32px; text-align: center; }
+  .contact-link-icon { font-size: 18px; width: 32px; text-align: center; color: var(--accent); transition: color 0.3s; }
+  .contact-link:hover .contact-link-icon { color: var(--accent2); }
   .contact-link-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 2px; }
   .contact-link-val { font-size: 13px; color: var(--text); }
 
@@ -529,7 +532,9 @@
     font-size: 12px; color: var(--muted);
     transition: all 0.3s;
   }
+  .fun-fact i { font-size: 16px; color: var(--accent); transition: color 0.3s; }
   .fun-fact:hover { border-color: var(--accent2); color: var(--text); }
+  .fun-fact:hover i { color: var(--accent2); }
 
   /* ===== FOOTER ===== */
   footer {
