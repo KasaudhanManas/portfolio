@@ -122,7 +122,7 @@ const projects = [
     features: ['Interactive SVG-based anatomy diagrams', 'Real-time quiz system with scoring', 'Responsive design for all devices'],
     tech: ['HTML', 'CSS', 'JavaScript', 'SVG'],
     github: 'https://github.com/manaskasaudhan/anatomymaster',
-    live: 'anatomy-master.html'
+    live: 'https://kasaudhanmanas.github.io/human-anatomy/'
   },
   {
     id: 2,
@@ -134,7 +134,7 @@ const projects = [
     features: ['Daily/monthly expense tracking', 'Interactive Chart.js visualizations', 'LocalStorage persistence'],
     tech: ['JavaScript', 'Chart.js', 'CSS3', 'LocalStorage'],
     github: 'https://github.com/manaskasaudhan/spendwise',
-    live: 'spend-wise.html'
+    live: 'https://kasaudhanmanas.github.io/spendwise-the-expense-tracker/'
   },
   {
     id: 3,
@@ -146,7 +146,7 @@ const projects = [
     features: ['Geolocation-based weather fetching', 'MongoDB caching (60% API reduction)', 'RESTful Node.js backend'],
     tech: ['React', 'Node.js', 'MongoDB', 'REST API'],
     github: 'https://github.com/manaskasaudhan/weatherscope',
-    live: 'weather-scope.html'
+    live: 'https://kasaudhanmanas.github.io/weather-forecast-platform/'
   },
   {
     id: 4,
@@ -158,7 +158,7 @@ const projects = [
     features: ['Real-time messaging via Socket.io', 'JWT-based authentication', 'MongoDB message persistence'],
     tech: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'JWT'],
     github: 'https://github.com/manaskasaudhan/chatflow',
-    live: 'chat-flow.html'
+    live: 'https://kasaudhanmanas.github.io/chat-app/'
   }
 ];
 
@@ -221,76 +221,6 @@ function observeReveal() {
 renderProjects();
 setTimeout(observeReveal, 100);
 
-// ===== FORM =====
-function submitForm(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = 'Sending...';
-  setTimeout(() => {
-    btn.style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-  }, 1200);
-}
-
-// ===== RESUME =====
-function downloadResume() {
-  const a = document.createElement('a');
-  a.href = '#';
-  alert('Resume download would be triggered here. Connect your actual resume PDF link.');
-}
-
-// ===== ADMIN PANEL =====
-function openAdmin() {
-  document.getElementById('admin-overlay').classList.add('open');
-  document.getElementById('admin-login').style.display = 'block';
-  document.getElementById('admin-dashboard').classList.remove('visible');
-}
-function closeAdmin() {
-  document.getElementById('admin-overlay').classList.remove('open');
-}
-function adminLogin() {
-  const u = document.getElementById('admin-user').value;
-  const p = document.getElementById('admin-pass').value;
-  if (u === 'admin' && p === 'admin123') {
-    document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('admin-dashboard').classList.add('visible');
-    renderAdminProjects();
-  } else {
-    alert('Invalid credentials. Try admin / admin123');
-  }
-}
-function renderAdminProjects() {
-  const list = document.getElementById('admin-proj-list');
-  list.innerHTML = projects.map(p => `
-    <div class="admin-proj-row">
-      <span>${p.icon} ${p.title}</span>
-      <div class="admin-proj-actions">
-        <button class="admin-btn" onclick="adminEdit(${p.id})">Edit</button>
-        <button class="admin-btn danger" onclick="adminDelete(${p.id})">Delete</button>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('stat-count').textContent = projects.length;
-}
-function adminEdit(id) {
-  alert(`Edit project #${id} — In a real app, this would open an edit form.`);
-}
-function adminDelete(id) {
-  if (confirm('Delete this project?')) {
-    const idx = projects.findIndex(p => p.id === id);
-    if (idx > -1) { projects.splice(idx, 1); renderProjects(); renderAdminProjects(); }
-  }
-}
-function adminAddProject() {
-  const title = prompt('Project title:');
-  if (title) {
-    projects.push({ id: Date.now(), title, category: 'New', icon: '🚀', color: 'rgba(124,106,255,0.3)', desc: 'New project description.', features: ['Feature 1'], tech: ['Tech'], github: '#', live: '#' });
-    renderProjects(); renderAdminProjects();
-  }
-}
-document.getElementById('admin-overlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('admin-overlay')) closeAdmin();
-});
 
 // ===== PARALLAX HERO =====
 document.addEventListener('mousemove', e => {

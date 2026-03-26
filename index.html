@@ -50,7 +50,7 @@
 
     <div class="hero-btns">
       <a href="#projects" class="btn-primary">View Projects</a>
-      <a href="resume.html" class="btn-outline">Download Resume</a>
+      <a href="resume.pdf" target="_blank" class="btn-outline">Download Resume</a>
       <a href="#contact" class="btn-outline">Contact Me</a>
     </div>
   </div>
@@ -281,7 +281,6 @@
       <div class="section-eyebrow reveal">Selected Work</div>
       <h2 class="section-title reveal">Projects</h2>
     </div>
-    <a href="admin.html" class="btn-outline reveal" style="white-space:nowrap; text-decoration:none;">⚙ Admin Panel</a>
   </div>
 
   <div class="projects-grid" id="projects-grid">
@@ -298,11 +297,11 @@
       <p class="github-sub">Consistently shipping code, reviewing PRs, and contributing to the open source community. Every commit represents a problem solved.</p>
       <div class="github-stat-row">
         <div>
-          <div class="g-stat-val">50+</div>
+          <div class="g-stat-val">10+</div>
           <div class="g-stat-label">Repositories</div>
         </div>
         <div>
-          <div class="g-stat-val">200+</div>
+          <div class="g-stat-val">100+</div>
           <div class="g-stat-label">Commits / Year</div>
         </div>
         <div>
@@ -325,7 +324,7 @@
     <div>
       <div class="edu-degree">Master of Computer Applications (MCA)</div>
       <div class="edu-school">Galgotias University</div>
-      <div class="edu-year">2024 — 2026 · Greater Noida, India</div>
+      <div class="edu-year">2025 — 2027 · Greater Noida, India</div>
     </div>
   </div>
 </section>
@@ -368,18 +367,18 @@
     </div>
 
     <div class="reveal">
-      <form class="contact-form" id="contact-form" onsubmit="submitForm(event)">
+      <form action="https://formsubmit.co/manas.kasaudhan@gmail.com" method="POST" class="contact-form" id="contact-form">
         <div class="form-group">
           <label class="form-label">Name</label>
-          <input class="form-input" type="text" placeholder="Your name" required />
+          <input class="form-input" type="text" name="name" placeholder="Your name" required />
         </div>
         <div class="form-group">
           <label class="form-label">Email</label>
-          <input class="form-input" type="email" placeholder="your@email.com" required />
+          <input class="form-input" type="email" name="email" placeholder="your@email.com" required />
         </div>
         <div class="form-group">
           <label class="form-label">Message</label>
-          <textarea class="form-textarea" placeholder="Tell me about your project or opportunity..." required></textarea>
+          <textarea class="form-textarea" name="message" placeholder="Tell me about your project or opportunity..." required></textarea>
         </div>
         <button type="submit" class="form-submit">Send Message →</button>
         <div class="form-success" id="form-success">
@@ -394,7 +393,6 @@
 <footer>
   <span>© 2026 Manas Kasaudhan. All rights reserved.</span>
   <span>Built with React · Node.js · MongoDB</span>
-  <a href="admin.html" style="background:none;border:none;color:var(--muted);cursor:pointer;font-family:inherit;font-size:11px;text-decoration:none;" class="nav-cta" title="Admin">Admin</a>
 </footer>
 
 
