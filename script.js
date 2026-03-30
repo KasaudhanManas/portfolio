@@ -29,85 +29,166 @@ function type() {
 }
 type();
 
-// ===== CANVAS HERO ANIMATION =====
-(function() {
+// ===== WEBGL HERO BACKGROUND (THREE.JS) =====
+(function () {
   const canvas = document.getElementById('canvas-bg');
-  const ctx = canvas.getContext('2d');
-  let w, h, particles = [], connections = [];
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
+  camera.position.z = 300;
+
+  const obj = new THREE.Group();
+  scene.add(obj);
+
+  // 1) Outer Particle Sphere
+  const geom = new THREE.BufferGeometry();
+  const numParticles = 4000;
+  const positions = new Float32Array(numParticles * 3);
+  const colors = new Float32Array(numParticles * 3);
+
+  for(let i = 0; i < numParticles; i++) {
+    const u = Math.random();
+    const v = Math.random();
+    const theta = u * 2.0 * Math.PI;
+    const phi = Math.acos(2.0 * v - 1.0);
+    const r = 160 + Math.random() * 20;
+
+    positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
+    positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+    positions[i*3+2] = r * Math.cos(phi);
+  }
+
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geom.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+  const texCanvas = document.createElement('canvas');
+  texCanvas.width = 64; texCanvas.height = 64;
+  const ctx = texCanvas.getContext('2d');
+  const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+  grad.addColorStop(0.3, 'rgba(255, 255, 255, 0.5)');
+  grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 64, 64);
+  const tex = new THREE.CanvasTexture(texCanvas);
+
+  const mat = new THREE.PointsMaterial({
+    size: 4,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.8,
+    map: tex,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+
+  const particles = new THREE.Points(geom, mat);
+  obj.add(particles);
+
+  // 2) Inner wireframe structure
+  const innerGeom = new THREE.IcosahedronGeometry(130, 2);
+  const innerMat = new THREE.MeshBasicMaterial({
+    color: 0xb53cff,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.15,
+    blending: THREE.AdditiveBlending
+  });
+  const innerMesh = new THREE.Mesh(innerGeom, innerMat);
+  obj.add(innerMesh);
+
+  // === DYNAMIC THEME UPDATER FOR 3D MODEL ===
+  function updateThreeTheme(theme) {
+    const isLight = theme === 'light';
+    const c1 = new THREE.Color(isLight ? '#ff8b7e' : '#00ffcc');
+    const c2 = new THREE.Color(isLight ? '#ffb75e' : '#b53cff');
+    innerMat.color.setHex(isLight ? 0xff8b7e : 0xb53cff);
+    
+    // Switch from AdditiveBlending to NormalBlending so particles don't vanish into light backgrounds
+    mat.blending = isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
+    innerMat.blending = isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
+    mat.needsUpdate = true;
+    innerMat.needsUpdate = true;
+
+    const colAttr = geom.attributes.color;
+    for(let i = 0; i < numParticles; i++) {
+      const mixedColor = c1.clone().lerp(c2, Math.random());
+      colAttr.setXYZ(i, mixedColor.r, mixedColor.g, mixedColor.b);
+    }
+    colAttr.needsUpdate = true;
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach(m => {
+      if (m.attributeName === 'data-theme') {
+        updateThreeTheme(document.documentElement.getAttribute('data-theme'));
+      }
+    });
+  });
+  observer.observe(document.documentElement, { attributes: true });
+  
+  // Set initial
+  updateThreeTheme(localStorage.getItem('theme') || 'dark');
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let windowHalfX = window.innerWidth / 2;
+  let windowHalfY = window.innerHeight / 2;
+  let scrollY = window.scrollY;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX - windowHalfX);
+    mouseY = (e.clientY - windowHalfY);
+  });
+
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+  });
 
   function resize() {
-    w = canvas.width = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    windowHalfX = width / 2;
+    windowHalfY = height / 2;
+    
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
   }
-  resize(); window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize);
+  resize();
 
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * w;
-      this.y = Math.random() * h;
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.vy = (Math.random() - 0.5) * 0.4;
-      this.r = Math.random() * 1.5 + 0.5;
-      this.alpha = Math.random() * 0.5 + 0.1;
-      this.color = Math.random() > 0.5 ? '0,245,196' : '124,106,255';
-    }
-    update() {
-      this.x += this.vx; this.y += this.vy;
-      if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) this.reset();
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
-      ctx.fill();
-    }
+  function animate() {
+    requestAnimationFrame(animate);
+
+    targetX = mouseX * 0.001;
+    targetY = mouseY * 0.001;
+
+    // Base rotation
+    obj.rotation.y += 0.002;
+    obj.rotation.x += 0.001;
+
+    // Inertial mouse rotation addition
+    obj.rotation.y += (targetX - obj.rotation.y) * 0.05;
+    obj.rotation.x += (targetY - obj.rotation.x) * 0.05;
+
+    // Parallax scroll movement (clamped to prevent free-fall)
+    obj.position.y = Math.max(-scrollY * 0.05, -60);
+
+    // Mild slow pulse of the innermesh
+    const time = Date.now() * 0.001;
+    innerMesh.scale.setScalar(1.0 + Math.sin(time * 1.5) * 0.03);
+
+    renderer.render(scene, camera);
   }
-
-  for (let i = 0; i < 120; i++) particles.push(new Particle());
-
-  let mx2 = w / 2, my2 = h / 2;
-  canvas.addEventListener('mousemove', e => { mx2 = e.offsetX; my2 = e.offsetY; });
-
-  function loop() {
-    ctx.clearRect(0, 0, w, h);
-    // Dark gradient bg
-    const grd = ctx.createRadialGradient(w * 0.3, h * 0.4, 0, w * 0.5, h * 0.5, w * 0.8);
-    grd.addColorStop(0, 'rgba(124,106,255,0.04)');
-    grd.addColorStop(0.5, 'rgba(0,245,196,0.02)');
-    grd.addColorStop(1, 'rgba(5,5,7,0)');
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, w, h);
-
-    particles.forEach(p => { p.update(); p.draw(); });
-
-    // Connections
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < 100) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0,245,196,${0.06 * (1 - d / 100)})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Mouse interaction glow
-    const mgrd = ctx.createRadialGradient(mx2, my2, 0, mx2, my2, 200);
-    mgrd.addColorStop(0, 'rgba(0,245,196,0.04)');
-    mgrd.addColorStop(1, 'rgba(0,245,196,0)');
-    ctx.fillStyle = mgrd;
-    ctx.fillRect(0, 0, w, h);
-
-    requestAnimationFrame(loop);
-  }
-  loop();
+  animate();
 })();
 
 // ===== PROJECTS DATA =====
@@ -236,3 +317,61 @@ window.addEventListener('scroll', () => {
   if (window.scrollY > 80) nav.style.padding = '14px 60px';
   else nav.style.padding = '24px 60px';
 });
+
+// ===== 3D TILT EFFECT ON CARDS =====
+const tiltCards = document.querySelectorAll('.skill-tag, .project-card');
+tiltCards.forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    // Calculate rotation (-5 to 5 degrees max, more aggressive for small tags)
+    const rotX = ((y - centerY) / centerY) * (card.classList.contains('skill-tag') ? -15 : -5);
+    const rotY = ((x - centerX) / centerX) * (card.classList.contains('skill-tag') ? 15 : 5);
+    const scale = card.classList.contains('skill-tag') ? 1.15 : 1.02;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(${scale}, ${scale}, ${scale})`;
+    card.style.transition = 'none';
+    card.style.zIndex = '100';
+    if(card.classList.contains('skill-tag')) {
+      card.style.boxShadow = '0 10px 20px rgba(0,0,0,0.15)';
+    }
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    card.style.transition = 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)';
+    card.style.zIndex = '1';
+    card.style.boxShadow = 'none';
+  });
+});
+
+// ===== THEME TOGGLE =====
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const currentTheme = localStorage.getItem('theme') || 'dark';
+
+document.documentElement.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme);
+
+if(themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+  });
+}
+
+function updateThemeIcon(theme) {
+  if(!themeIcon) return;
+  if (theme === 'light') {
+    themeIcon.className = 'bx bxs-moon';
+  } else {
+    themeIcon.className = 'bx bxs-sun';
+  }
+}
